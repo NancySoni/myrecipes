@@ -33,6 +33,7 @@ test "should get recipes show" do
   assert_match @chef.chefname,response.body
   assert_select 'a[href=?]',edit_recipe_path(@recipe),text:"Edit this recipe"
   assert_select 'a[href=?]',recipe_path(@recipe),text:"Delete this recipe"
+  assert_select 'a[href=?]',recipes_path,text:"Return to recipe listing"
 end
 test "create new valid recipe" do
   get new_recipe_path
