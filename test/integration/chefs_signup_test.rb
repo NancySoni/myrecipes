@@ -8,7 +8,7 @@ end
 test "should reject invalid signup" do
      get signup_path
      assert_no_difference "Chef.count" do
-     post chefs_path,params:{chef:{chefname:"",email:"",password:"",password_confirmation:""}}
+     post chefs_path,params: {chef:{chefname:" ",email:" ",password:"password",password_confirmation:" "}}
 end
 assert_template 'chefs/new'
 assert_select 'h2.panel-title'

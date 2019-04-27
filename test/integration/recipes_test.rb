@@ -25,6 +25,7 @@ end
 
 
 test "should get recipes show" do
+sign_in_as(@chef,"password")
   get recipe_path(@recipe)
   assert_template 'recipes/show'
 
@@ -36,6 +37,7 @@ test "should get recipes show" do
   assert_select 'a[href=?]',recipes_path,text:"Return to recipe listing"
 end
 test "create new valid recipe" do
+sign_in_as(@chef,"password")
   get new_recipe_path
   assert_template 'recipes/new'
   name_of_recipe="chicken soute"
@@ -53,6 +55,7 @@ test "create new valid recipe" do
 
 
   test "reject invalid recipe" do
+sign_in_as(@chef,"password")
   get new_recipe_path
   assert_template 'recipes/new'
   assert_no_difference 'Recipe.count' do

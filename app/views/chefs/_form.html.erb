@@ -1,0 +1,50 @@
+<%=render 'shared/errors',obj:@chef%>
+<div class="row">
+  <div class="col-md-12">
+    <%=form_for(@chef,:html => {class: "form-horizontal",role: "form"}) do|f| %>
+<div class="form-group">
+  <div class="control-label col-md-2 col-md-1">
+<%= f.label :chefname,"Choose a Chefname" %>
+</div>
+<div class="col-md-8">
+  <%=f.text_field :chefname, class: "form-control",placeholder: "enter your name ",autofocus: true %>
+      </div>
+  </div>
+  <div class="form-group">
+    <div class="control-label col-md-2">
+  <%= f.label :email %>
+  </div>
+  <div class="col-md-8">
+    <%=f.email_field :email,class: "form-control",placeholder: "enter your email" %>
+        </div>
+    </div>
+    <div class="form-group">
+      <div class="control-label col-md-2">
+    <%= f.label :password %>
+    </div>
+    <div class="col-md-8">
+      <%=f.password_field :password,class: "form-control",placeholder: "enter your password" %>
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+      <%= f.label :password_confirmation,"confirm password" %>
+      </div>
+      <div class="col-md-8">
+        <%=f.password_field :password_confirmation,class: "form-control",placeholder: "enter your password again" %>
+            </div>
+        </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <%= f.submit(@chef.new_record? ? "create my account" : "update my account" ,
+                                         class:"btn btn-primary btn-lg btn-xlarge") %>
+      </div>
+      </div>
+
+    <% end %>
+    <div class="col-md-4 col-md-offset-4 colormatch">
+
+[<%= link_to "cancel request and return to recipe list",chefs_path%>]
+      </div>
+    </div>
+</div>
