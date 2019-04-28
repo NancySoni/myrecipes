@@ -3,13 +3,14 @@ require 'test_helper'
 class ChefsEditTest < ActionDispatch::IntegrationTest
   def setup
     @chef=Chef.create!(chefname:"nancy",email:"nancy@example.com",password:"password",password_confirmation:"password")
-
+  @chef2=Chef.create!(chefname:"sim",email:"sim@example.com",password:"password",password_confirmation:"password")
+  @admin_user=Chef.create!(chefname:"sim1",email:"sim1@example.com",password:"password",password_confirmation:"password",admin:"true")
   end
   test "should reject invalid edit" do
     sign_in_as(@chef,"password")
        get edit_chef_path(@chef)
         assert_template 'chefs/edit'
-       patch chef_path(@chef),params:{chef:{chefname:"",email:""}}
+       patch chef_path(@chef),params: {chef:{chefname:" ",email:"nancy@example.com"}}
   assert_template 'chefs/edit'
   assert_select 'h2.panel-title'
   assert_select 'div.panel-body'
@@ -19,11 +20,37 @@ class ChefsEditTest < ActionDispatch::IntegrationTest
     sign_in_as(@chef,"password")
     get edit_chef_path(@chef)
      assert_template 'chefs/edit'
-    patch chef_path(@chef),params:{chef:{chefname:"gulati",email:"gulati@example.com"}}
+    patch chef_path(@chef),params:{chef:{chefname:"nancy1",email:"nancy1@example.com"}}
 assert_redirected_to @chef
 assert_not flash.empty?
 @chef.reload
-assert_match "gulati",@chef.chefname
-assert_match "gulati@example.com",@chef.email
+assert_match "nancy1",@chef.chefname
+assert_match "nancy1@example.com",@chef.email
+  end
+
+
+
+  test "accept edit attempt by admin user"do
+  sign_in_as(@admin_user,"password")
+  get edit_chef_path(@chef)
+   assert_template 'chefs/edit'
+  patch chef_path(@chef),params:{chef:{chefname:"gulati1",email:"gulati1@example.com"}}
+assert_redirected_to @chef
+assert_not flash.empty?
+@chef.reload
+assert_match "gulati1",@chef.chefname
+assert_match "gulati1@example.com",@chef.email
+
+  end
+  test "redirect edit attempt by non admin users"do
+  sign_in_as(@chef2,"password")
+  updated_name="joe"
+  updated_email="joe@example.com"
+  patch chef_path(@chef),params:{chef:{chefname:updated_name,email:updated_email}}
+  assert_redirected_to chefs_path
+  assert_not flash.empty?
+  @chef.reload
+  assert_match "nancy",@chef.chefname
+  assert_match "nancy@example.com",@chef.email
   end
 end
