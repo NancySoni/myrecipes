@@ -7,7 +7,8 @@ def index
   @recipes=Recipe.all
 end
 def show
-
+  @comment=Comment.new
+@comments =@recipe.comments.all
 end
 def new
   @recipe=Recipe.new
