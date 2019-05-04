@@ -4,7 +4,7 @@ before_action :require_user, except: [:index,:show]
 before_action :require_same_user, only:[:edit,:update,:destroy]
 
 def index
-  @recipes=Recipe.all
+  @recipes = Recipe.all
 end
 def show
   @comment=Comment.new

@@ -7,8 +7,9 @@ def create
     @comment=@recipe.comments.build(comment_params)
     @comment.chef=current_chef
     if @comment.save
-      flash[:sucess]="comment success"
-      redirect_to recipe_path(@recipe)
+      ActionCable.server.broadcast "comments", render(partial:'comments/comment', object: @comment)
+    #  flash[:sucess]="comment success"
+  #    redirect_to recipe_path(@recipe)
 
     else
       flash[:danger]="comment was not created"
