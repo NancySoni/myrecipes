@@ -3,18 +3,18 @@ require 'test_helper'
 class ChefsEditTest < ActionDispatch::IntegrationTest
   def setup
     @chef=Chef.create!(chefname:"nancy",email:"nancy@example.com",password:"password",password_confirmation:"password")
-  @chef2=Chef.create!(chefname:"sim",email:"sim@example.com",password:"password",password_confirmation:"password")
-  @admin_user=Chef.create!(chefname:"sim1",email:"sim1@example.com",password:"password",password_confirmation:"password",admin:"true")
+    @chef2=Chef.create!(chefname:"sim",email:"sim@example.com",password:"password",password_confirmation:"password")
+    @admin_user=Chef.create!(chefname:"sim1",email:"sim1@example.com",password:"password",password_confirmation:"password",admin:"true")
   end
+
   test "should reject invalid edit" do
     sign_in_as(@chef,"password")
-       get edit_chef_path(@chef)
-        assert_template 'chefs/edit'
-       patch chef_path(@chef),params: {chef:{chefname:" ",email:"nancy@example.com"}}
-  assert_template 'chefs/edit'
-  assert_select 'h2.panel-title'
-  assert_select 'div.panel-body'
-
+    get edit_chef_path(@chef)
+    assert_template 'chefs/edit'
+    patch chef_path(@chef),params: {chef:{chefname:" ",email:"nancy@example.com"}}
+    assert_template 'chefs/edit'
+    assert_select 'h2.panel-title'
+    assert_select 'div.panel-body'
   end
   test "should accept valid update" do
     sign_in_as(@chef,"password")

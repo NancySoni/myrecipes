@@ -13,23 +13,20 @@ end
 
 
 def new
-@chef=Chef.new
+  @chef=Chef.new
 end
-
-
-
 
 def create
-@chef=Chef.new(chef_params)
-if @chef.save
-session[:chef_id]=@chef.id
-cookies.signed[:chef_id]=@chef.id
-flash[:sucess]="welcome #{@chef.chefname} to Myrecipe App!"
-redirect_to chef_path(@chef)
-  #code
-else
-  render 'new'
-end
+  @chef=Chef.new(chef_params)
+  if @chef.save
+    session[:chef_id]=@chef.id
+    cookies.signed[:chef_id]=@chef.id
+    flash[:sucess]="welcome #{@chef.chefname} to Myrecipe App!"
+    redirect_to chef_path(@chef)
+    #code
+  else
+    render 'new'
+  end
 end
 
 
@@ -50,13 +47,12 @@ end
 
 
 def update
-
-if Chef.update(chef_params)
-  flash[:success]="your account was updated successfully"
-  redirect_to  chef_path(@chef)
-else
-render 'edit'
-end
+  if @chef.update_attributes(chef_params)
+    flash[:success]="your account was updated successfully"
+    redirect_to  chef_path(@chef)
+  else
+  render 'edit'
+  end
 end
 
 

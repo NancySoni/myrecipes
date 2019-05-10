@@ -41,6 +41,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
+  gem 'pry'
+  gem 'pry-nav'
   gem 'sqlite3'
   gem 'rails-controller-testing'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
