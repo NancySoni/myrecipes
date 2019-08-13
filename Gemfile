@@ -7,8 +7,12 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.3'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'jquery-rails'
+gem 'activeadmin', github: 'activeadmin'
 # Use sqlite3 as the database for Active Record
+gem 'devise'
+gem 'active_admin_editor'
 
+gem 'autoprefixer-rails'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
